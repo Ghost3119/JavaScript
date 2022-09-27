@@ -1,0 +1,10 @@
+// La variable global
+let fixedValue = 4;
+
+// Cambia solo el código debajo de esta línea
+function incrementer(value) {
+  return value + 1;
+  // Cambia solo el código encima de esta línea
+}
+var differentValue = incrementer(fixedValue); // Should equal 5
+console.log(fixedValue); // Should print 4

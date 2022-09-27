@@ -1,0 +1,6 @@
+// Configuración
+const lastName = "Lovelace";
+
+// Cambia solo el código debajo de esta línea
+const secondToLastLetterOfLastName = lastName[lastName.length -2]; // Cambia esta línea
+// Cambia solo el código encima de esta línea

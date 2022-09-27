@@ -1,0 +1,40 @@
+function checkCashRegister(price, cash, cid) {
+  let change = {
+    status: "", change: []
+  };
+  function Money(name, value, availible) {
+    this.name = name;
+    this.value = value;
+    this.availible = availible;
+  }
+  function payment(price, cash) {
+    return cash - price
+  }
+  let refound = payment(price, cash);
+  //console.log(refound);
+  const penny = new Money(cid[0][0], 0.01, cid[0][1]);
+  const nickel = new Money(cid[1][0], 0.05, cid[1][1]);
+  const dime = new Money(cid[2][0], 0.1, cid[2][1]);
+  const quarter = new Money(cid[3][0], 0.25, cid[3][1]);
+  const dollar = new Money(cid[4][0], 1, cid[4][1]);
+  const fiveDollar = new Money(cid[5][0], 5, cid[5][1]);
+  const tenDollar = new Money(cid[6][0], 10, cid[6][1]);
+  const twentyDollar = new Money(cid[7][0], 20, cid[7][1]);
+  const oneHundredDollar = new Money(cid[8][0], 100, cid[8][1]);
+  let arrChange = [];
+  var arrofObjects = [penny, nickel, dime, quarter, dollar, fiveDollar, tenDollar, twentyDollar, oneHundredDollar]
+  if (arrofObjects < refound) {
+    return change = { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+  //console.log(arrofObjects)
+  arrofObjects.forEach(object => {
+    if (object.value <= refound) {
+      console.log(object.name, object.value, object.availible);
+      arrChange.push(object.name)
+    }
+  });
+  console.log(arrChange);
+  return change;
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);

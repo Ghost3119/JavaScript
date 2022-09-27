@@ -1,0 +1,45 @@
+function checkCashRegister(price, cash, cid) {
+  let change = cash - price
+  const changeArray = [];
+  const money = {
+    "PENNY": .01,
+    "NICKEL": .05,
+    "DIME": .10,
+    "QUARTER": .25,
+    "ONE": 1.00,
+    "FIVE": 5.00,
+    "TEN": 10.00,
+    "TWENTY": 20.00,
+    "ONE HUNDRED": 100.00
+  }
+  //console.log(money)
+  var totalMoney = cid.reduce(function (x, y) {
+    return x + y[1];
+  }, 0.0);
+  if (totalMoney < change) {
+    return change = { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+  else if (totalMoney == change) {
+    return change = { status: "CLOSED", change: cid }
+  } else {
+    cid = cid.reverse();
+    for (let datos of cid) {
+      let temporal = [datos[0], 0];
+      while (change >= money[datos[0]] && datos[1] > 0) {
+        temporal[1] += money[datos[0]];
+        datos[1] -= money[datos[0]];
+        change -= money[datos[0]];
+        change = change.toFixed(2);
+      }
+      if (temporal[1] > 0) {
+        changeArray.push(temporal);
+      }
+    }
+  }
+  if (change > 0) {
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+  return { status: "OPEN", change: changeArray };
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);

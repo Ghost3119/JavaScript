@@ -1,0 +1,68 @@
+function checkCashRegister(price, cash, cid) {
+  let change = cash - price
+  let changeToGive = cash - price;
+  const changeArray = [];
+  function Money(name, value) {
+    this.name = name;
+    this.value = value;
+  }
+  const money = {
+    "PENNY": .01,
+    "NICKEL": .05,
+    "DIME": .10,
+    "QUARTER": .25,
+    "ONE": 1.00,
+    "FIVE": 5.00,
+    "TEN": 10.00,
+    "TWENTY": 20.00,
+    "ONE HUNDRED": 100.00
+  }
+  console.log(money)
+  const penny = new Money(cid[0][0], 0.01);
+  const nickel = new Money(cid[1][0], 0.05);
+  const dime = new Money(cid[2][0], 0.1);
+  const quarter = new Money(cid[3][0], 0.25);
+  const dollar = new Money(cid[4][0], 1);
+  const fiveDollar = new Money(cid[5][0], 5);
+  const tenDollar = new Money(cid[6][0], 10);
+  const twentyDollar = new Money(cid[7][0], 20);
+  const oneHundredDollar = new Money(cid[8][0], 100);
+  var arrofObjects = [penny, nickel, dime, quarter, dollar, fiveDollar, tenDollar, twentyDollar, oneHundredDollar]
+  console.log(arrofObjects)
+  var totalMoney = cid.reduce(function (x, y) {
+    return x + y[1];
+  }, 0.0);
+  if (totalMoney < change) {
+    return change = { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+  else if (totalMoney === change) {
+    return change = { status: "CLOSED", change: cid }
+  } else {
+    cid = cid.reverse();
+    for (let elem of cid) {
+      let temp = [elem[0], 0];
+      while (changeToGive >= money[elem[0]] && elem[1] > 0) {
+        temp[1] += money[elem[0]];
+        elem[1] -= money[elem[0]];
+        changeToGive -= money[elem[0]];
+        changeToGive = changeToGive.toFixed(2);
+      }
+      if (temp[1] > 0) {
+        changeArray.push(temp);
+      }
+    }
+  }
+  if (changeToGive > 0) {
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+  return { status: "OPEN", change: changeArray };
+}
+//console.log(arrofObjects)
+/* arrofObjects.forEach(object => {
+   if (object.value <= change && object.availible >= change) {
+    //console.log(object.name, object.value, object.availible);
+     arrChange.push(object.name, object.availible - change)
+ 
+   }
+ });*/
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
